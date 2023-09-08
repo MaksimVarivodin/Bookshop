@@ -35,7 +35,6 @@ public class UserModel implements UserDetails {
     Long id;
 
 
-
     @Column(nullable = false, length = 100)
     String firstName;
 
@@ -93,6 +92,8 @@ public class UserModel implements UserDetails {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
         return Collections.singletonList(authority);
     }
+
+
     /**
      * Retrieves the username of the user.
      *
@@ -112,6 +113,7 @@ public class UserModel implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
+
     /**
      * Determines if the account is locked or not.
      *
@@ -121,6 +123,7 @@ public class UserModel implements UserDetails {
     public boolean isAccountNonLocked() {
         return !locked;
     }
+
     /**
      * Determines whether the user's credentials are non-expired.
      *
@@ -130,6 +133,7 @@ public class UserModel implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     /**
      * Determines if the function is enabled.
      *
@@ -139,4 +143,5 @@ public class UserModel implements UserDetails {
     public boolean isEnabled() {
         return activated;
     }
+
 }
