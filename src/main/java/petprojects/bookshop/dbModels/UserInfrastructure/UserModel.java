@@ -1,11 +1,10 @@
-package petprojects.bookshop.databaseStructure.UserInfrastructure.User;
+package petprojects.bookshop.dbModels.UserInfrastructure;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import petprojects.bookshop.databaseStructure.UserInfrastructure.UserRoles;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -60,7 +59,7 @@ public class UserModel implements UserDetails {
     @Column
     Boolean activated;
 
-    @Column(nullable = true)
+    @Column( length = 2083)
     String profilePictureLink;
 
     public UserModel(String firstName,
