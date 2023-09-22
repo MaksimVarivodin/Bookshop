@@ -2,6 +2,7 @@ package petprojects.bookshop.dbModels.LiteratureInfrastructure.LiteratureInfo;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import petprojects.bookshop.dbModels.LiteratureInfrastructure.Author.AuthorModel;
 import petprojects.bookshop.dbModels.LiteratureInfrastructure.Genre.GenreModel;
 
 public class LiteratureInfoModel {
@@ -11,7 +12,9 @@ public class LiteratureInfoModel {
     String title;
     int price;
     String description;
-    Long authorId;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "authorId")
+    AuthorModel author;
     @ManyToOne
     @JoinColumn(referencedColumnName = "genreId")
     GenreModel genre;

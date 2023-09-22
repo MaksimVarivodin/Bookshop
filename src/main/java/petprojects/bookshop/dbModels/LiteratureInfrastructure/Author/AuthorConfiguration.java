@@ -15,18 +15,28 @@ public class AuthorConfiguration {
         return args -> {
            AuthorModel  authorModel1 = new AuthorModel(
                     "Author1",
-                    LocalDate.of(
+                   LocalDate.of(
                             2000,
                             1,
                             1),
+                    LocalDate.of(
+                            2001,
+                            1,
+                            1)
+                    ,
                     "link1",
-                    "short1"),
-                        authorModel2 = new AuthorModel(
+                    "short1")
+                    , authorModel2 = new AuthorModel(
                     "Author2",
                     LocalDate.of(
                             2001,
                             2,
                             2),
+                    LocalDate.of(
+                            2002,
+                            2,
+                            2)
+                    ,
                     "link2",
                     "short2");
 
