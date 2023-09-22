@@ -21,7 +21,9 @@ And some Front-end technologies like TScript and Angular framework.
 Here is the DataBase Structure:
 ![](bookshopDBSchema.png)
 
-## Background
+## Setup
+
+ 
 
 ## Issues
 
