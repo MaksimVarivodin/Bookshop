@@ -9,6 +9,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ import java.util.Objects;
 public class AuthorModel {
     @Id
     @GeneratedValue(
-            strategy = GenerationType.IDENTITY
+            strategy = GenerationType.TABLE
     )
     @Column(nullable = false,
             unique = true,
@@ -69,6 +70,7 @@ public class AuthorModel {
         return Period.between(birthDate, Objects.requireNonNullElseGet(deathDate, LocalDate::now)).getYears();
     }
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LiteratureInfoModel> literature = new ArrayList<>();
+    @OneToMany( orphanRemoval = true)
+    @JoinColumn(name = "author_id")
+    private Set<LiteratureInfoModel> literature;
 }

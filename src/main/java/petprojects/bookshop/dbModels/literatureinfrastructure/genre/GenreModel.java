@@ -2,11 +2,11 @@ package petprojects.bookshop.dbModels.literatureinfrastructure.genre;
 
 import jakarta.persistence.*;
 import lombok.*;
-import petprojects.bookshop.dbModels.literatureinfrastructure.author.AuthorModel;
 import petprojects.bookshop.dbModels.literatureinfrastructure.literatureinfo.LiteratureInfoModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,7 +19,7 @@ public class GenreModel {
 
     @Id
     @GeneratedValue(
-            strategy = GenerationType.IDENTITY
+            strategy = GenerationType.TABLE
     )
     @Column(nullable = false,
             unique = true,
@@ -34,7 +34,8 @@ public class GenreModel {
     public GenreModel(String genreName) {
         this.genreName = genreName;
     }
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LiteratureInfoModel> literature = new ArrayList<>();
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "genre_id")
+    private Set<LiteratureInfoModel> literature;
 
 }

@@ -2,7 +2,6 @@ package petprojects.bookshop.dbModels.literatureinfrastructure.author;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,9 +22,9 @@ public class AuthorController {
      *
      * @return a list of AuthorModel objects
      */
-    @GetMapping(path = "/{authorId}")
-    public List<AuthorModel> getAuthors(@PathVariable ("authorId") Long authorId) {
-        return authorService.getAuthors(authorId);
+    @GetMapping()
+    public List<AuthorModel> getAuthors() {
+        return authorService.getAuthors();
     }
 
     /**

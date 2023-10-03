@@ -3,10 +3,8 @@ package petprojects.bookshop.dbModels.literatureinfrastructure.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,18 +23,12 @@ public class AuthorService {
      *
      * @return List of AuthorModel objects representing authors.
      */
-    public List<AuthorModel> getAuthors(Long authorId) {
-        if (authorId != null)
-        {
-            Optional<AuthorModel> model = authorRepository.findById(authorId);
-            if (model.isPresent())
-                return Collections.singletonList(model.get());
-            else {
-                throw new IllegalStateException(String.format(NO_SUCH_AUTHOR_EXISTS, authorId));
-            }
-        }
+    public List<AuthorModel> getAuthors() {
         // Retrieve all authors from the author repository.
         return authorRepository.findAll();
+    }
+    public Optional<AuthorModel> getAuthorById(Long authorId) {
+        return authorRepository.findById(authorId);
     }
 
 
@@ -114,4 +106,6 @@ public class AuthorService {
                         }
                 );
     }
+
+
 }

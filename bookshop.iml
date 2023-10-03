@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/security" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/dbModels/userinfrastructure" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/development" />
     </content>
   </component>
   <component name="FacetManager">

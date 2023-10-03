@@ -2,13 +2,10 @@ package petprojects.bookshop.dbModels.literatureinfrastructure.literatureinfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import petprojects.bookshop.dbModels.literatureinfrastructure.author.AuthorModel;
 import petprojects.bookshop.dbModels.literatureinfrastructure.author.AuthorService;
-import petprojects.bookshop.dbModels.literatureinfrastructure.genre.GenreModel;
 import petprojects.bookshop.dbModels.literatureinfrastructure.genre.GenreService;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,16 +29,11 @@ public class LiteratureInfoService {
 
     }
 
-    public List<LiteratureInfoModel> getLiterature(Long authorId) {
-        if (authorId != null){
-            Optional<LiteratureInfoModel> model = literatureInfoRepository.findById(authorId);
-            if (model.isPresent())
-                return Collections.singletonList(model.get());
-            else {
-                throw new IllegalStateException(String.format(NO_SUCH_LITERATURE_EXISTS, authorId));
-            }
-        }
+    public List<LiteratureInfoModel> getLiterature() {
         return literatureInfoRepository.findAll();
+    }
+    public Optional<LiteratureInfoModel> getLiteratureById(Long authorId) {
+        return literatureInfoRepository.findById(authorId);
     }
     public void addNewLiterature(LiteratureInfoModel literatureInfoModel) {
         literatureInfoRepository.findByTitle(literatureInfoModel.getTitle())
@@ -73,12 +65,11 @@ public class LiteratureInfoService {
                                 literature.setPrice(price);
                             if (description != null && !description.isEmpty())
                                 literature.setDescription(description);
-                            List<AuthorModel > authors = authorService.getAuthors(authorId);
-                            if (authors.size() == 1)
-                                literature.setAuthor(authors.get(0));
-                            List<GenreModel> genres= genreService.getGenres(genreId);
-                            if (genres.size() == 1)
-                                literature.setGenre(genres.get(0));
+
+                            authorService.getAuthorById(authorId).ifPresent(literature::setAuthor);
+
+                            genreService.getGenreById(genreId).ifPresent(literature::setGenre);
+
 
                             literatureInfoRepository.save(literature);
 
@@ -102,12 +93,11 @@ public class LiteratureInfoService {
                                 literature.setPrice(literatureInfoModel.getPrice());
                             if (literatureInfoModel.getDescription() != null && !literatureInfoModel.getDescription().isEmpty())
                                 literature.setDescription(literatureInfoModel.getDescription());
-                            List<AuthorModel> authors = authorService.getAuthors(literatureInfoModel.getId());
-                            if (authors.size() == 1)
-                                literature.setAuthor(authors.get(0));
-                            List<GenreModel> genres = genreService.getGenres(literatureInfoModel.getId());
-                            if (genres.size() == 1)
-                                literature.setGenre(genres.get(0));
+
+                            authorService.getAuthorById(literatureInfoModel.getAuthor().getId()).ifPresent(literature::setAuthor);
+
+                            genreService.getGenreById(literatureInfoModel.getGenre().getId()).ifPresent(literature::setGenre);
+
                             literatureInfoRepository.save(literature);
                         },
                         () -> {

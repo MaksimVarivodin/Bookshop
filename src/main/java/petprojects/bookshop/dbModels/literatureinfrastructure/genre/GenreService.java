@@ -3,7 +3,6 @@ package petprojects.bookshop.dbModels.literatureinfrastructure.genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,16 +16,11 @@ public class GenreService {
     public GenreService(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
-    public List<GenreModel> getGenres(Long genreId) {
-        if (genreId != null){
-            Optional<GenreModel> model = genreRepository.findById(genreId);
-            if (model.isPresent())
-                return Collections.singletonList(model.get());
-            else {
-                throw new IllegalStateException(String.format(NO_SUCH_GENRE_EXISTS, genreId));
-            }
-        }
+    public List<GenreModel> getGenres() {
         return genreRepository.findAll();
+    }
+    public Optional<GenreModel> getGenreById(Long genreId) {
+        return genreRepository.findById(genreId);
     }
 
     public void addNewGenre(GenreModel genreModel) {

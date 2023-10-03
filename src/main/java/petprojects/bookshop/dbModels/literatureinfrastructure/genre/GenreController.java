@@ -15,10 +15,9 @@ public class GenreController {
     public GenreController(GenreService genreService) {
         this.genreService = genreService;
     }
-    @GetMapping(path = "/{genreId}")
-    public List<GenreModel> getGenres(@PathVariable("genreId")
-                                          Long genreId) {
-        return genreService.getGenres(genreId);
+    @GetMapping()
+    public List<GenreModel> getGenres() {
+        return genreService.getGenres();
     }
 
     @PostMapping()

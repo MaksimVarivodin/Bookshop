@@ -1,7 +1,10 @@
 package petprojects.bookshop.dbModels.literatureinfrastructure.literatureinfo;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import petprojects.bookshop.dbModels.literatureinfrastructure.author.AuthorModel;
 import petprojects.bookshop.dbModels.literatureinfrastructure.genre.GenreModel;
 
@@ -18,7 +21,7 @@ public class LiteratureInfoModel {
     @Id
 
     @GeneratedValue(
-            strategy = GenerationType.IDENTITY
+            strategy = GenerationType.TABLE
     )
     @Column(nullable = false,
             unique = true,
@@ -42,12 +45,12 @@ public class LiteratureInfoModel {
     @Column(length = 10000)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
+    @ManyToOne
+    @JoinColumn(name = "author_id", insertable = false)
     private AuthorModel author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "genre_id")
+    @ManyToOne
+    @JoinColumn(name = "genre_id", insertable = false)
     private GenreModel genre;
 
     public LiteratureInfoModel(Integer pages,

@@ -17,11 +17,9 @@ public class LiteratureInfoController {
     public LiteratureInfoController(LiteratureInfoService literatureInfoService) {
         this.literatureInfoService = literatureInfoService;
     }
-    @GetMapping(path = "/{literatureId}")
-    public List<LiteratureInfoModel> getLiterature(
-            @PathVariable("literatureId")
-            Long literatureId ) {
-        return literatureInfoService.getLiterature(literatureId);
+    @GetMapping()
+    public List<LiteratureInfoModel> getLiterature( ) {
+        return literatureInfoService.getLiterature();
     }
     @PostMapping()
     public void addNewLiterature(LiteratureInfoModel literatureInfoModel) {
