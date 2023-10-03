@@ -4,8 +4,20 @@
     <content url="file://$MODULE_DIR$" dumb="true">
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
-      <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/dbModels/UserInfrastructure" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/security" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/dbModels/userinfrastructure" />
     </content>
+  </component>
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="entityManagerFactory" value="a65ab857-b4f9-4a37-b6ca-85028f16efdf" />
+        </datasource-mapping>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
   </component>
 </module>
