@@ -13,9 +13,7 @@ import petprojects.bookshop.models.literatureinfrastructure.LiteratureInfoModel;
 @Table  (name = "counters")
 public class PresentLiteratureModel {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.TABLE
-    )
+    @GeneratedValue
     @Column(    name = "key_counter_id",
             nullable = false,
             unique = true,
@@ -23,11 +21,13 @@ public class PresentLiteratureModel {
     private Long counterId;
     @Column(nullable = false)
     private Integer amount;
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "key_literature_id", insertable = false)
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "key_literature_id")
     private LiteratureInfoModel literature;
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "key_shop_id", insertable = false)
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "key_shop_id")
     private ShopModel shop;
 
     public PresentLiteratureModel(Integer amount,

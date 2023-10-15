@@ -31,6 +31,7 @@ public class OrderService {
     public List<OrderModel> getOrders() {
         return orderRepository.findAll();
     }
+
     /**
      * Retrieves an order by its ID.
      *
@@ -43,6 +44,7 @@ public class OrderService {
             throw new IllegalStateException(String.format(NO_SUCH_ORDER_EXISTS, orderId));
         return order;
     }
+
     /**
      * Adds a new order to the order repository.
      *
@@ -55,9 +57,12 @@ public class OrderService {
                         order -> {
                             throw new IllegalStateException(String.format(ORDER_EXISTS, order.getCardNumber()));
                         },
-                        ()-> orderRepository.save(orderModel)
+                        () -> orderRepository.save(orderModel)
+
+
                 );
     }
+
     /**
      * Updates the fields of an order.
      *

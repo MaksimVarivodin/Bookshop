@@ -18,9 +18,7 @@ public class LiteratureInfoModel {
 
     @Id
 
-    @GeneratedValue(
-            strategy = GenerationType.TABLE
-    )
+    @GeneratedValue
     @Column(   name = "key_literature_id",
             nullable = false,
             unique = true,
@@ -44,12 +42,12 @@ public class LiteratureInfoModel {
     @Column(length = 10000)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", insertable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
     private AuthorModel author;
 
-    @ManyToOne
-    @JoinColumn(name = "genre_id", insertable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "genre_id")
     private GenreModel genre;
 
     public LiteratureInfoModel(Integer pages,

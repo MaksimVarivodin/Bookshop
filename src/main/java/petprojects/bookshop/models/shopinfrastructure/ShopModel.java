@@ -12,9 +12,7 @@ import lombok.*;
 @Table(name = "shops")
 public class ShopModel {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.TABLE
-    )
+    @GeneratedValue
     @Column(name = "key_shop_id",
             nullable = false,
             unique = true,
@@ -36,8 +34,8 @@ public class ShopModel {
     private Integer bookStorageSize;
 
 
-    @ManyToOne
-    @JoinColumn(name = "city_id", insertable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id")
     private CityModel city;
 
 }

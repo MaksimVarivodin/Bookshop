@@ -1,1 +1,1 @@
-create schema bookshop default character set utf16 collate utf16_general_ci;
+create schema bookshop;

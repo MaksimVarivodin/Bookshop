@@ -1,10 +1,12 @@
-package petprojects.bookshop.development2;
+package petprojects.bookshop.development;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import petprojects.bookshop.dbModels.literatureinfrastructure.author.AuthorModel;
-import petprojects.bookshop.dbModels.literatureinfrastructure.author.AuthorRepository;
+import petprojects.bookshop.models.literatureinfrastructure.AuthorModel;
+import petprojects.bookshop.repositories.AuthorRepository;
+import petprojects.bookshop.services.AuthorService;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,14 +14,9 @@ import java.util.List;
 @Configuration
 public class AuthorConfiguration {
 
-    /**
-     * Creates a CommandLineRunner that saves two author models to the author repository.
-     *
-     * @param authorRepository the repository to save the author models to
-     * @return a CommandLineRunner that saves the author models
-     */
+
     @Bean
-    CommandLineRunner commandLineRunAuthorConfig(AuthorRepository authorRepository) {
+    CommandLineRunner commandLineRunAuthorConfig(AuthorService authorService) {
         return args -> {
             // Create the first author model
             AuthorModel authorModel1 = new AuthorModel(
@@ -39,8 +36,8 @@ public class AuthorConfiguration {
                     "short2"
             );
 
-            // Save the author models to the repository
-            authorRepository.saveAll(List.of(authorModel1, authorModel2));
+            authorService.addNewAuthor(authorModel1);
+            authorService.addNewAuthor(authorModel2);
         };
     }
 }

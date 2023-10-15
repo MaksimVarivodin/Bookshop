@@ -1,9 +1,14 @@
 package petprojects.bookshop.models.userinfrastructure;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import petprojects.bookshop.models.orderinfrastructure.OrderModel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 //import org.springframework.security.coreGrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,9 +27,7 @@ import java.util.Set;
 public class UserModel {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.TABLE
-    )
+    @GeneratedValue
     @Column(name = "key_user_id",
             nullable = false,
             unique = true,
@@ -60,9 +63,8 @@ public class UserModel {
     @Column(length = 2083)
     private String profilePictureLink;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private Set<OrderModel> orders;
+    @OneToMany(mappedBy = "user")
+    private List<OrderModel> orders;
 
     public UserModel(String firstName,
                      String lastName,

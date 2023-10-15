@@ -6,7 +6,6 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/security" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/development2" />
-      <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/development" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/models/userinfrastructure/user" />
     </content>
   </component>

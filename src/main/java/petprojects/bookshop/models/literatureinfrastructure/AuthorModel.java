@@ -17,13 +17,12 @@ import java.util.Set;
 @Table(name = "authors")
 public class AuthorModel {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.TABLE
-    )
+    @GeneratedValue
     @Column(name = "key_author_id",
             nullable = false,
             unique = true,
-            updatable = false)
+            updatable = false
+    )
     private Long authorId;
 
     @Column(nullable = false,
@@ -46,9 +45,6 @@ public class AuthorModel {
 
     @Column
     private String biographyInShort;
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "author_id")
-    private Set<LiteratureInfoModel> literature;
 
     public AuthorModel(String fullName,
                        LocalDate birthDate,

@@ -15,9 +15,7 @@ import java.util.Set;
 public class GenreModel {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.TABLE
-    )
+    @GeneratedValue
     @Column(    name = "key_genre_id",
             nullable = false,
             unique = true,
@@ -28,9 +26,6 @@ public class GenreModel {
             length = 100,
             unique = true)
     private String genreName;
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "genre_id")
-    private Set<LiteratureInfoModel> literature;
 
     public GenreModel(String genreName) {
         this.genreName = genreName;

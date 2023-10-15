@@ -1,10 +1,12 @@
-package petprojects.bookshop.development2;
+package petprojects.bookshop.development;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import petprojects.bookshop.dbModels.literatureinfrastructure.genre.GenreModel;
-import petprojects.bookshop.dbModels.literatureinfrastructure.genre.GenreRepository;
+import petprojects.bookshop.models.literatureinfrastructure.GenreModel;
+import petprojects.bookshop.repositories.GenreRepository;
+import petprojects.bookshop.services.GenreService;
+
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
 public class GenreConfiguration
 {
     @Bean
-    CommandLineRunner commandLineRunGenreConfig(GenreRepository genreRepository) {
+    CommandLineRunner commandLineRunGenreConfig(GenreService genreService) {
         return args -> {
 
             GenreModel genreModel1 = new GenreModel(
@@ -21,8 +23,8 @@ public class GenreConfiguration
             GenreModel genreModel2 = new GenreModel(
                     "Genre2"
             );
-
-            genreRepository.saveAll(List.of(genreModel1, genreModel2));
+            genreService.addNewGenre(genreModel1);
+            genreService.addNewGenre(genreModel2);
         };
     }
 }
