@@ -5,8 +5,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/security" />
-      <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/dbModels/userinfrastructure" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/development2" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/development" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/petprojects/bookshop/models/userinfrastructure/user" />
     </content>
   </component>
   <component name="FacetManager">
@@ -15,7 +16,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="entityManagerFactory" value="a65ab857-b4f9-4a37-b6ca-85028f16efdf" />
+          <factory-entry name="entityManagerFactory" value="f5f64205-d3ed-4b40-a2b3-d26d9fdac016" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
