@@ -1,10 +1,13 @@
 package petprojects.bookshop.models.userinfrastructure;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.data.repository.cdi.Eager;
 import petprojects.bookshop.models.orderinfrastructure.OrderModel;
 
 import java.util.ArrayList;
@@ -24,10 +27,14 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "users")
+@ToString
+
 public class UserModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(name = "key_user_id",
             nullable = false,
             unique = true,
@@ -63,9 +70,9 @@ public class UserModel {
     @Column(length = 2083)
     private String profilePictureLink;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<OrderModel> orders;
-
     public UserModel(String firstName,
                      String lastName,
                      String email,
@@ -85,7 +92,4 @@ public class UserModel {
         this.activated = activated;
         this.profilePictureLink = profilePictureLink;
     }
-
-
-
 }

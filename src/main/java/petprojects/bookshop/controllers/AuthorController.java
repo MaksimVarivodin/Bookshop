@@ -29,6 +29,10 @@ public class AuthorController {
         return authorService.getAuthors();
     }
 
+    @GetMapping("/{authorId}")
+    public AuthorModel getAuthorById(@PathVariable("authorId") Long authorId) {
+        return authorService.getAuthorById(authorId);
+    }
     /**
      * Add a new author.
      *

@@ -2,6 +2,7 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.orderinfrastructure.OrderModel;
 import petprojects.bookshop.repositories.OrderRepository;
 
@@ -38,11 +39,12 @@ public class OrderService {
      * @param orderId the ID of the order to retrieve
      * @return an Optional containing the order if found, or an empty Optional if not found
      */
-    public Optional<OrderModel> getOrderById(Long orderId) {
+    public OrderModel getOrderById(Long orderId) {
         Optional<OrderModel> order = orderRepository.findById(orderId);
         if (order.isEmpty())
             throw new IllegalStateException(String.format(NO_SUCH_ORDER_EXISTS, orderId));
-        return order;
+        else
+            return order.get();
     }
 
     /**
@@ -51,6 +53,7 @@ public class OrderService {
      * @param orderModel the order model to be added
      * @throws IllegalStateException if an order with the same card number already exists
      */
+    @Transactional
     public void addNewOrder(OrderModel orderModel) {
         orderRepository.findByCardNumber(orderModel.getCardNumber())
                 .ifPresentOrElse(
@@ -74,6 +77,7 @@ public class OrderService {
      * @param userId     the ID of the user to set on the order
      * @throws IllegalStateException if the order with the given ID does not exist
      */
+    @Transactional
     public void updateOrderFields(Long orderId,
                                   Long cardNumber,
                                   Integer cvv,
@@ -95,8 +99,10 @@ public class OrderService {
                             if (year != null) {
                                 order.setYear(year);
                             }
+                            if (userId != null) {
+                                order.setUser(userService.getUserById(userId));
+                            }
 
-                            userService.getUserById(userId).ifPresent(order::setUser);
 
                             orderRepository.save(order);
                         },
@@ -112,6 +118,7 @@ public class OrderService {
      * @param orderId    The ID of the order to update.
      * @param orderModel The order model containing the updated information.
      */
+    @Transactional
     public void updateOrder(Long orderId, OrderModel orderModel) {
         updateOrderFields(
                 orderId,
@@ -129,6 +136,7 @@ public class OrderService {
      * @param orderId The ID of the order to be deleted.
      * @throws IllegalStateException if no order with the given ID exists.
      */
+    @Transactional
     public void deleteOrder(Long orderId) {
         orderRepository.findById(orderId)
                 .ifPresentOrElse(

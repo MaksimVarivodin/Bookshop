@@ -3,6 +3,7 @@ package petprojects.bookshop.controllers;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import petprojects.bookshop.models.orderinfrastructure.OrderModel;
 import petprojects.bookshop.models.userinfrastructure.UserModel;
 import petprojects.bookshop.models.userinfrastructure.UserRoles;
 import petprojects.bookshop.services.UserService;
@@ -30,6 +31,18 @@ public class UserController {
         return userService.getUsers();
     }
 
+    @GetMapping("/{userId}")
+    public UserModel getUserById(@PathVariable("userId") Long userId) {
+        return userService.getUserById(userId);
+    }
+    @GetMapping("/orders/{userId}")
+    public List<OrderModel> getUserOrdersById(@PathVariable("userId") Long userId) {
+        UserModel user = userService.getUserById(userId);
+        if (user == null) {
+            throw new NullPointerException("User not found");
+        }
+        return user.getOrders();
+    }
     /**
      * Add a new user
      *

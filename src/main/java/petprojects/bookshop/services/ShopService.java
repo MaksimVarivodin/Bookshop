@@ -29,11 +29,12 @@ public class ShopService {
         return shopRepository.findAll();
     }
 
-    public Optional<ShopModel> getShopById(Long shopId) {
+    public ShopModel getShopById(Long shopId) {
         Optional<ShopModel> shop = shopRepository.findById(shopId);
         if (shop.isEmpty())
             throw new IllegalStateException(String.format(NO_SUCH_SHOP_EXISTS, shopId));
-        return shop;
+        else
+            return shop.get();
     }
 
     public void addNewShop(ShopModel shopModel) {
@@ -63,7 +64,7 @@ public class ShopService {
                             if (bookStorageSize != null)
                                 shop.setBookStorageSize(bookStorageSize);
                             if (cityId != null)
-                                cityService.getCityById(cityId).ifPresent(shop::setCity);
+                                shop.setCity(cityService.getCityById(cityId));
                             shopRepository.save(shop);
                         },
                         () -> {

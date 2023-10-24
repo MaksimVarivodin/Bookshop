@@ -17,7 +17,9 @@ import java.util.Set;
 @Table(name = "authors")
 public class AuthorModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(name = "key_author_id",
             nullable = false,
             unique = true,

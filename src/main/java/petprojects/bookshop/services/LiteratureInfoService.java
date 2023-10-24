@@ -45,11 +45,12 @@ public class LiteratureInfoService {
      * @param authorId The ID of the author.
      * @return An optional containing the literature information model if found, otherwise empty.
      */
-    public Optional<LiteratureInfoModel> getLiteratureById(Long authorId) {
+    public LiteratureInfoModel getLiteratureById(Long authorId) {
         Optional<LiteratureInfoModel> literatureInfoModel = literatureInfoRepository.findById(authorId);
         if (literatureInfoModel.isEmpty())
             throw new IllegalStateException(String.format(NO_SUCH_LITERATURE_EXISTS, authorId));
-        return literatureInfoModel;
+        else
+            return literatureInfoModel.get();
     }
 
     /**
@@ -100,8 +101,13 @@ public class LiteratureInfoService {
             if (description != null && !description.isEmpty()) {
                 literature.setDescription(description);
             }
-            authorService.getAuthorById(authorId).ifPresent(literature::setAuthor);
-            genreService.getGenreById(genreId).ifPresent(literature::setGenre);
+            if (authorId != null) {
+                literature.setAuthor(authorService.getAuthorById(authorId));
+            }
+            if (genreId != null) {
+                literature.setGenre(genreService.getGenreById(genreId));
+            }
+
             literatureInfoRepository.save(literature);
         }, () -> {
             throw new IllegalStateException(String.format(NO_SUCH_LITERATURE_EXISTS, id));

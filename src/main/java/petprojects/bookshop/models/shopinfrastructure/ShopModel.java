@@ -12,7 +12,9 @@ import lombok.*;
 @Table(name = "shops")
 public class ShopModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(name = "key_shop_id",
             nullable = false,
             unique = true,

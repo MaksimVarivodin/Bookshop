@@ -15,7 +15,9 @@ import java.util.Set;
 public class GenreModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(    name = "key_genre_id",
             nullable = false,
             unique = true,

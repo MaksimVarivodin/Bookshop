@@ -17,8 +17,9 @@ import java.math.BigDecimal;
 public class LiteratureInfoModel {
 
     @Id
-
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(   name = "key_literature_id",
             nullable = false,
             unique = true,

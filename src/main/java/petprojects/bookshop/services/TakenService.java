@@ -31,10 +31,16 @@ public class TakenService {
     public List<TakenModel> getTaken() {
         return takenRepository.findAll();
     }
-
+    public TakenModel getTakenById(Long takenId) {
+        Optional<TakenModel> taken = takenRepository.findById(takenId);
+        if (taken.isEmpty()) {
+            throw new IllegalStateException(String.format(NO_SUCH_TAKEN_EXISTS, takenId));
+        } else
+            return taken.get();
+    }
 
     public void addNewTaken(TakenModel takenModel) {
-        takenRepository.findByDate(takenModel.getDate())
+        takenRepository.findByCounterAndOrder(takenModel.getCounter(), takenModel.getOrder())
                 .ifPresentOrElse(
                         order -> {
                             throw new IllegalStateException(String.format(TAKEN_EXISTS, order.getTakenId()));
@@ -44,21 +50,20 @@ public class TakenService {
     }
 
     public void updateTakenFields(Long takenId,
-                                  LocalDate date,
                                   Integer amount,
                                   Long orderId,
                                   Long counterId) {
         takenRepository.findById(takenId)
                 .ifPresentOrElse(
                         taken -> {
-                            if (date != null)
-                                taken.setDate(date);
+
                             if (amount != null)
                                 taken.setAmount(amount);
                             if (orderId != null)
-                                orderService.getOrderById(orderId).ifPresent(taken::setOrder);
+                                taken.setOrder(orderService.getOrderById(orderId));
+
                             if (counterId != null)
-                                presentLiteratureService.getPresentLiteratureById(counterId).ifPresent(taken::setCounter);
+                                taken.setCounter(presentLiteratureService.getPresentLiteratureById(counterId));
 
                             takenRepository.save(taken);
                         },
@@ -70,7 +75,6 @@ public class TakenService {
 
     public void updateTaken(Long takenId, TakenModel takenModel) {
         updateTakenFields(takenId,
-                takenModel.getDate(),
                 takenModel.getAmount(),
                 takenModel.getOrder().getOrderId(),
                 takenModel.getCounter().getCounterId());

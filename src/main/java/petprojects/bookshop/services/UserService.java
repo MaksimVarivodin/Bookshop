@@ -6,6 +6,7 @@ import petprojects.bookshop.models.userinfrastructure.UserModel;
 import petprojects.bookshop.models.userinfrastructure.UserRoles;
 import petprojects.bookshop.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +26,12 @@ public class UserService {
     public List<UserModel> getUsers() {
         return userRepository.findAll();
     }
-    public Optional<UserModel> getUserById(Long userId) {
+    public UserModel getUserById(Long userId) {
         Optional<UserModel> user = userRepository.findById(userId);
         if (user.isEmpty())
             throw new IllegalStateException(String.format(USER_NOT_FOUND_MSG, userId));
-        return user;
+        else
+            return user.get();
     }
     public void addNewUser(UserModel userModel) {
         userRepository.findByEmail(userModel.getEmail())

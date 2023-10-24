@@ -17,16 +17,15 @@ import java.time.LocalDate;
 @Table(name = "taken")
 public class TakenModel {
     @Id
-
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(name = "key_taken_id",
             nullable = false,
             unique = true,
             updatable = false)
     private Long takenId;
-    @Column(nullable = false,
-            unique = true)
-    private LocalDate date;
+
     @Column(nullable = false)
     private Integer amount;
 
@@ -40,8 +39,7 @@ public class TakenModel {
     @JoinColumn(name = "present_literature_id")
     private PresentLiteratureModel counter;
 
-    public TakenModel(LocalDate date, Integer amount, OrderModel order, PresentLiteratureModel counter) {
-        this.date = date;
+    public TakenModel( Integer amount, OrderModel order, PresentLiteratureModel counter) {
         this.amount = amount;
         this.order = order;
         this.counter = counter;

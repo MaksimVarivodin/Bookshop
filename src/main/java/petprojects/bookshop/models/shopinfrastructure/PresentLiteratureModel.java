@@ -13,7 +13,9 @@ import petprojects.bookshop.models.literatureinfrastructure.LiteratureInfoModel;
 @Table  (name = "counters")
 public class PresentLiteratureModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(    name = "key_counter_id",
             nullable = false,
             unique = true,

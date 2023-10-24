@@ -13,10 +13,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Data
+@ToString(exclude = "shops")
 @Table(name = "cities")
 public class CityModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(    name = "key_city_id",
             nullable = false,
             unique = true,
@@ -27,6 +30,9 @@ public class CityModel {
             unique = true)
     private String cityName;
 
+    @Getter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "city")
+    private Set<ShopModel> shops;
     public CityModel(String cityName) {
         this.cityName = cityName;
     }

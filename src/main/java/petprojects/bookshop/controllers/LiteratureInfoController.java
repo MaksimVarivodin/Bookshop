@@ -29,6 +29,10 @@ public class LiteratureInfoController {
         return literatureInfoService.getLiterature();
     }
 
+    @GetMapping("/{literatureId}")
+    public LiteratureInfoModel getLiteratureById(@PathVariable("literatureId") Long literatureId) {
+        return literatureInfoService.getLiteratureById(literatureId);
+    }
     /**
      * Add new literature information.
      *

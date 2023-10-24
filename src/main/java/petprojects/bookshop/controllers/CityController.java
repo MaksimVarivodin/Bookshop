@@ -29,6 +29,11 @@ public class CityController {
         return cityService.getCities();
     }
 
+    @GetMapping("/{cityId}")
+    public CityModel getCityById(@PathVariable("cityId") Long cityId) {
+        return cityService.getCityById(cityId);
+    }
+
     /**
      * Add a new city.
      *

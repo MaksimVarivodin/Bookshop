@@ -29,6 +29,10 @@ public class PresentLiteratureController {
         return presentLiteratureService.getPresentLiterature();
     }
 
+    @GetMapping("/{presentLiteratureId}")
+    public PresentLiteratureModel getPresentLiteratureById(@PathVariable("presentLiteratureId") Long presentLiteratureId) {
+        return presentLiteratureService.getPresentLiteratureById(presentLiteratureId);
+    }
     /**
      * Add new present literature.
      *

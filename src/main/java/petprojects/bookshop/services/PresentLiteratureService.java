@@ -41,11 +41,12 @@ public class PresentLiteratureService {
      * @param presentLiteratureId The ID of the PresentLiteratureModel to retrieve.
      * @return Optional containing the retrieved PresentLiteratureModel, or an empty Optional if not found.
      */
-    public Optional<PresentLiteratureModel> getPresentLiteratureById(Long presentLiteratureId) {
+    public PresentLiteratureModel getPresentLiteratureById(Long presentLiteratureId) {
         Optional<PresentLiteratureModel> presentLiterature = presentLiteratureRepository.findById(presentLiteratureId);
         if (presentLiterature.isEmpty())
             throw new IllegalStateException(String.format(NO_SUCH_LITERATURE_EXISTS, presentLiteratureId));
-        return presentLiterature;
+        else
+            return presentLiterature.get();
     }
     /**
      * Adds a new present literature to the repository.
@@ -81,9 +82,9 @@ public class PresentLiteratureService {
                             if (amount != null)
                                 literature.setAmount(amount);
                             if (shop_id != null)
-                                shopService.getShopById(shop_id).ifPresent(literature::setShop);
+                               literature.setShop( shopService.getShopById(shop_id));
                             if (literature_id != null)
-                                literatureInfoService.getLiteratureById(literature_id).ifPresent(literature::setLiterature);
+                                literature.setLiterature( literatureInfoService.getLiteratureById(literature_id));
                             presentLiteratureRepository.save(literature);
                         },
                         () -> {

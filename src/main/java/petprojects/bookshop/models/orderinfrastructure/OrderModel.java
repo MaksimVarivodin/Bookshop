@@ -1,13 +1,13 @@
 package petprojects.bookshop.models.orderinfrastructure;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import petprojects.bookshop.models.userinfrastructure.UserModel;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -19,12 +19,17 @@ import java.util.Set;
 @Table(name = "orders")
 public class OrderModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     @Column(    name = "key_order_id",
             nullable = false,
             unique = true,
             updatable = false)
     private Long orderId;
+    @Column(nullable = false,
+            unique = true)
+    private LocalDateTime date;
     @Column(nullable = false,
             unique = true)
     private Long cardNumber;
@@ -36,23 +41,25 @@ public class OrderModel {
     @Column(nullable = false)
     private Integer year;
 
-
     @Getter(AccessLevel.NONE)
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserModel user;
 
 
-    @Getter(AccessLevel.NONE)
+
     @OneToMany(mappedBy = "order")
     private List<TakenModel> taken;
 
     public OrderModel(Long cardNumber,
+                      LocalDateTime date,
                       Integer cvv,
                       Integer month,
                       Integer year,
                       UserModel user) {
         this.cardNumber = cardNumber;
+        this.date = date;
         this.cvv = cvv;
         this.month = month;
         this.year = year;
@@ -62,9 +69,6 @@ public class OrderModel {
     public UserModel getUser() {
         return user;
     }
-    @JsonManagedReference
-    public List<TakenModel> getTaken() {
-        return taken;
-    }
+
 
 }

@@ -36,11 +36,12 @@ public class CityService {
      * @param cityId The ID of the city to retrieve.
      * @return An Optional containing the CityModel if found, or an empty Optional if not found.
      */
-    public Optional<CityModel> getCityById(Long cityId) {
+    public CityModel getCityById(Long cityId) {
         Optional<CityModel> city = cityRepository.findById(cityId);
         if (city.isEmpty())
             throw new IllegalStateException(String.format(NO_SUCH_CITY_EXISTS, cityId));
-        return city;
+        else
+            return city.get();
     }
 
     /**

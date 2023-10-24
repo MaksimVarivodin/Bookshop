@@ -29,6 +29,10 @@ public class ShopController {
         return shopService.getShops();
     }
 
+    @GetMapping("/{shopId}")
+    public ShopModel getShopById(@PathVariable("shopId") Long shopId) {
+        return shopService.getShopById(shopId);
+    }
     /**
      * Add a new shop
      *

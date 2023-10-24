@@ -30,6 +30,10 @@ public class TakenController {
         return takenService.getTaken();
     }
 
+    @GetMapping("/{takenId}")
+    public TakenModel getTakenById(@PathVariable("takenId") Long takenId) {
+        return takenService.getTakenById(takenId);
+    }
     /**
      * Add a new taken order
      *
@@ -56,18 +60,16 @@ public class TakenController {
      * Update specific fields of an existing taken order
      *
      * @param takenId   The ID of the taken order to be updated
-     * @param date      The updated date of the taken order
      * @param amount    The updated amount of the taken order
      * @param orderId   The updated ID of the order associated with the taken order
      * @param counterId The updated ID of the counter associated with the taken order
      */
     @PatchMapping(path = "/{takenId}")
     public void updateTakenFields(@PathVariable("takenId") Long takenId,
-                                  @RequestParam LocalDate date,
                                   @RequestParam Integer amount,
                                   @RequestParam Long orderId,
                                   @RequestParam Long counterId) {
-        takenService.updateTakenFields(takenId, date, amount, orderId, counterId);
+        takenService.updateTakenFields(takenId,  amount, orderId, counterId);
     }
 
     /**

@@ -38,12 +38,12 @@ public class AuthorService {
      * @return An Optional containing the AuthorModel if found, otherwise an empty Optional.
      * @throws IllegalStateException If no author is found with the given ID.
      */
-    public Optional<AuthorModel> getAuthorById(Long authorId) {
+    public AuthorModel getAuthorById(Long authorId) {
         Optional<AuthorModel> author = authorRepository.findById(authorId);
         if (author.isEmpty()) {
             throw new IllegalStateException(String.format(NO_SUCH_AUTHOR_EXISTS, authorId));
-        }
-        return author;
+        } else
+            return author.get();
     }
 
 

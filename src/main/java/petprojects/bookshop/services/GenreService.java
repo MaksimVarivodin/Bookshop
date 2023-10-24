@@ -36,12 +36,13 @@ public class GenreService {
      * @return an Optional containing the genre if found
      * @throws IllegalStateException if no genre with the given ID exists
      */
-    public Optional<GenreModel> getGenreById(Long genreId) {
+    public GenreModel getGenreById(Long genreId) {
         Optional<GenreModel> genre = genreRepository.findById(genreId);
         if (genre.isEmpty()) {
             throw new IllegalStateException(String.format(NO_SUCH_GENRE_EXISTS, genreId));
-        }
-        return genre;
+        }   else
+            return genre.get();
+
     }
 
     /**

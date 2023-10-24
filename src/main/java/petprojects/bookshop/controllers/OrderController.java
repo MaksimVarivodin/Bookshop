@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import petprojects.bookshop.models.orderinfrastructure.OrderModel;
 import petprojects.bookshop.services.OrderService;
+import petprojects.bookshop.services.UserOrdersService;
 
 import java.util.List;
 
@@ -12,10 +13,13 @@ import java.util.List;
 @RequestMapping("/api/v1/orders")
 public class OrderController {
     private final OrderService orderService;
+    private final UserOrdersService userOrdersService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService,
+                           UserOrdersService userOrdersService) {
         this.orderService = orderService;
+        this.userOrdersService = userOrdersService;
     }
 
     /**
@@ -28,6 +32,10 @@ public class OrderController {
         return orderService.getOrders();
     }
 
+    @GetMapping("/{orderId}")
+    public OrderModel getOrderById(@PathVariable("orderId") Long orderId) {
+        return orderService.getOrderById(orderId);
+    }
     /**
      * Add a new order.
      *

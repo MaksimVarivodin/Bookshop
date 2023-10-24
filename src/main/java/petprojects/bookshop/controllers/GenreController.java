@@ -28,6 +28,10 @@ public class GenreController {
         return genreService.getGenres();
     }
 
+    @GetMapping("/{genreId}")
+    public GenreModel getGenreById(@PathVariable("genreId") Long genreId) {
+        return genreService.getGenreById(genreId);
+    }
     /**
      * Add a new genre.
      *
