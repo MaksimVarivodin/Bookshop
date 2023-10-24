@@ -4,7 +4,7 @@
 - [Intro](#intro)
     - [Background](#background)
     - [Issues](#issues)
-    - [Team Composition](#team-composition)~~~~
+    - [Team Composition](#team-composition)
 
 # Intro
 
