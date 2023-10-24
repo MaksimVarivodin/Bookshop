@@ -2,9 +2,9 @@
 
 - [Contents](#contents)
 - [Intro](#intro)
-    - [Back~~~~ground](#background)
-    -~~~~ [Issues](#issues)
-    - [Team Composition](#team-composition)
+    - [Background](#background)
+    - [Issues](#issues)
+    - [Team Composition](#team-composition)~~~~
 
 # Intro
 
