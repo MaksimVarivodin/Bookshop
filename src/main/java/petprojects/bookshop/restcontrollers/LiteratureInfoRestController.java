@@ -1,4 +1,4 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/literature")
-public class LiteratureInfoController {
+public class LiteratureInfoRestController {
     private final LiteratureInfoService literatureInfoService;
 
     @Autowired
-    public LiteratureInfoController(LiteratureInfoService literatureInfoService) {
+    public LiteratureInfoRestController(LiteratureInfoService literatureInfoService) {
         this.literatureInfoService = literatureInfoService;
     }
 

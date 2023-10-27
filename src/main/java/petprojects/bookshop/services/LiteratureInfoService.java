@@ -59,16 +59,22 @@ public class LiteratureInfoService {
      * @param literatureInfoModel The literature info model to add.
      * @throws IllegalStateException If the literature with the same title already exists.
      */
+
     public void addNewLiterature(LiteratureInfoModel literatureInfoModel) {
+        long amountOfElements = literatureInfoRepository.count();
         // Check if literature with the same title already exists
-        literatureInfoRepository.findByTitle(literatureInfoModel.getTitle())
-                .ifPresentOrElse(
-                        literature -> {
-                            // Throw exception if literature already exists
-                            throw new IllegalStateException(String.format(LITERATURE_EXISTS, literature.getTitle()));
-                        },
-                        () -> literatureInfoRepository.save(literatureInfoModel)
-                );
+        if (amountOfElements > 0){
+            literatureInfoRepository.findByTitle(literatureInfoModel.getTitle())
+                    .ifPresentOrElse(
+                            literature -> {
+                                // Throw exception if literature already exists
+                                throw new IllegalStateException(String.format(LITERATURE_EXISTS, literature.getTitle()));
+                            },
+                            () -> literatureInfoRepository.save(literatureInfoModel)
+                    );
+        }
+        else
+            literatureInfoRepository.save(literatureInfoModel);
     }
 
     /**
@@ -83,6 +89,7 @@ public class LiteratureInfoService {
      * @param authorId    the ID of the author to set (null to not update)
      * @param genreId     the ID of the genre to set (null to not update)
      */
+
     public void updateLiteratureFields(Long id, Integer pages, Integer words, String title, BigDecimal price,
                                        String description, Long authorId, Long genreId) {
         literatureInfoRepository.findById(id).ifPresentOrElse(literature -> {
@@ -117,9 +124,10 @@ public class LiteratureInfoService {
     /**
      * Updates the literature with the specified ID using the information provided in the literatureInfoModel.
      *
-     * @param id The ID of the literature to update.
+     * @param id                  The ID of the literature to update.
      * @param literatureInfoModel The new information for the literature.
      */
+
     public void updateLiterature(Long id, LiteratureInfoModel literatureInfoModel) {
         updateLiteratureFields(
                 id,

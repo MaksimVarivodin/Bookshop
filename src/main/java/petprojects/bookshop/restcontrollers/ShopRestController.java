@@ -1,4 +1,4 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/shops")
-public class ShopController {
+public class ShopRestController {
     private final ShopService shopService;
 
     // Constructor
     @Autowired
-    public ShopController(ShopService shopService) {
+    public ShopRestController(ShopService shopService) {
         this.shopService = shopService;
     }
 

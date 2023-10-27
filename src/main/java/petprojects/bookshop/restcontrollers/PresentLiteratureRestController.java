@@ -1,4 +1,4 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/present-literature")
-public class PresentLiteratureController {
+public class PresentLiteratureRestController {
 
     private final PresentLiteratureService presentLiteratureService;
 
     @Autowired
-    public PresentLiteratureController(PresentLiteratureService presentLiteratureService) {
+    public PresentLiteratureRestController(PresentLiteratureService presentLiteratureService) {
         this.presentLiteratureService = presentLiteratureService;
     }
 

@@ -1,4 +1,4 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cities")
-public class CityController {
+public class CityRestController {
 
     private final CityService cityService;
 
     @Autowired
-    public CityController(CityService cityService) {
+    public CityRestController(CityService cityService) {
         this.cityService = cityService;
     }
 

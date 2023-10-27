@@ -2,6 +2,7 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.literatureinfrastructure.GenreModel;
 import petprojects.bookshop.repositories.GenreRepository;
 
@@ -51,6 +52,7 @@ public class GenreService {
      * @param genreModel The genre to add.
      * @throws IllegalStateException If the genre already exists in the repository.
      */
+    @Transactional
     public void addNewGenre(GenreModel genreModel) {
         genreRepository.findByGenreName(genreModel.getGenreName())
                 .ifPresentOrElse(
@@ -68,6 +70,7 @@ public class GenreService {
      * @param name the new name for the genre
      * @throws IllegalStateException if the genre does not exist
      */
+    @Transactional
     public void updateGenreFields(Long genreId, String name) {
         genreRepository.findById(genreId)
                 .ifPresentOrElse(
@@ -88,6 +91,7 @@ public class GenreService {
      * @param genreId The ID of the genre to be updated.
      * @param genreModel The GenreModel object containing the updated genre information.
      */
+    @Transactional
     public void updateGenre(Long genreId, GenreModel genreModel) {
         // Update the genre fields
         updateGenreFields(
@@ -102,6 +106,7 @@ public class GenreService {
      * @param genreId the id of the genre to be deleted
      * @throws IllegalStateException if the genre does not exist
      */
+    @Transactional
     public void deleteGenre(Long genreId) {
         genreRepository.findById(genreId)
                 .ifPresentOrElse(

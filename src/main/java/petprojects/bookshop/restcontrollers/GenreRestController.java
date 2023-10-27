@@ -1,4 +1,4 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/genres")
-public class GenreController {
+public class GenreRestController {
     private final GenreService genreService;
 
     @Autowired
-    public GenreController(GenreService genreService) {
+    public GenreRestController(GenreService genreService) {
         this.genreService = genreService;
     }
 

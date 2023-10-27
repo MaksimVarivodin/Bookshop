@@ -1,6 +1,7 @@
 package petprojects.bookshop.models.literatureinfrastructure;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,8 +41,13 @@ public class LiteratureInfoModel {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(length = 10000)
+    @Column(columnDefinition = "TEXT" , length = 5000)
+    @Size(max = 10000)
     private String description;
+
+    @Column(columnDefinition = "TEXT" , length = 2083)
+    @Size(max = 10000)
+    private String bookCoverLink;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
@@ -56,6 +62,7 @@ public class LiteratureInfoModel {
                                String title,
                                BigDecimal price,
                                String description,
+                               String bookCoverLink,
                                AuthorModel author,
                                GenreModel genre) {
         this.pages = pages;
@@ -63,6 +70,7 @@ public class LiteratureInfoModel {
         this.title = title;
         this.price = price;
         this.description = description;
+        this.bookCoverLink = bookCoverLink;
         this.author = author;
         this.genre = genre;
     }

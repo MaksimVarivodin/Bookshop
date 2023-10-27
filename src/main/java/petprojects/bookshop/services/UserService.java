@@ -2,6 +2,8 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import petprojects.bookshop.models.orderinfrastructure.OrderModel;
 import petprojects.bookshop.models.userinfrastructure.UserModel;
 import petprojects.bookshop.models.userinfrastructure.UserRoles;
 import petprojects.bookshop.repositories.UserRepository;
@@ -33,6 +35,15 @@ public class UserService {
         else
             return user.get();
     }
+    public List<OrderModel>
+    getUserOrdersById(Long userId) {
+        UserModel user = getUserById(userId);
+        if (user == null) {
+            throw new NullPointerException("User not found");
+        }
+        return user.getOrders();
+    }
+    @Transactional
     public void addNewUser(UserModel userModel) {
         userRepository.findByEmail(userModel.getEmail())
                 .ifPresentOrElse(
@@ -42,6 +53,7 @@ public class UserService {
                         () -> userRepository.save(userModel)
                 );
     }
+    @Transactional
     public void updateUserFields(Long userId,
                                  String email,
                                  String password,
@@ -80,6 +92,7 @@ public class UserService {
                             throw new IllegalStateException(String.format(USER_NOT_FOUND_MSG, userId));
                         });
     }
+    @Transactional
     public void updateUser(Long userId, UserModel userModel) {
      updateUserFields(userId,
              userModel.getEmail(),
@@ -93,6 +106,7 @@ public class UserService {
              userModel.getProfilePictureLink())
              ;
     }
+    @Transactional
     public void deleteUser(Long userId) {
         userRepository.findById(userId)
                 .ifPresentOrElse(

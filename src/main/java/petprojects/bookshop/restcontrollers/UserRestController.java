@@ -1,4 +1,4 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class UserController {
+public class UserRestController {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
@@ -37,11 +37,7 @@ public class UserController {
     }
     @GetMapping("/orders/{userId}")
     public List<OrderModel> getUserOrdersById(@PathVariable("userId") Long userId) {
-        UserModel user = userService.getUserById(userId);
-        if (user == null) {
-            throw new NullPointerException("User not found");
-        }
-        return user.getOrders();
+        return userService.getUserOrdersById(userId);
     }
     /**
      * Add a new user

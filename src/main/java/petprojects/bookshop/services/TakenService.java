@@ -2,6 +2,7 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.orderinfrastructure.TakenModel;
 import petprojects.bookshop.repositories.TakenRepository;
 
@@ -38,7 +39,7 @@ public class TakenService {
         } else
             return taken.get();
     }
-
+    @Transactional
     public void addNewTaken(TakenModel takenModel) {
         takenRepository.findByCounterAndOrder(takenModel.getCounter(), takenModel.getOrder())
                 .ifPresentOrElse(
@@ -48,7 +49,7 @@ public class TakenService {
                         () -> takenRepository.save(takenModel)
                 );
     }
-
+    @Transactional
     public void updateTakenFields(Long takenId,
                                   Integer amount,
                                   Long orderId,
@@ -72,14 +73,14 @@ public class TakenService {
                         }
                 );
     }
-
+    @Transactional
     public void updateTaken(Long takenId, TakenModel takenModel) {
         updateTakenFields(takenId,
                 takenModel.getAmount(),
                 takenModel.getOrder().getOrderId(),
                 takenModel.getCounter().getCounterId());
     }
-
+    @Transactional
     public void deleteTaken(Long orderId) {
         takenRepository.findById(orderId)
                 .ifPresentOrElse(

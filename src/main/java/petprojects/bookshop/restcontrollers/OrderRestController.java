@@ -1,25 +1,21 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import petprojects.bookshop.models.orderinfrastructure.OrderModel;
 import petprojects.bookshop.services.OrderService;
-import petprojects.bookshop.services.UserOrdersService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/orders")
-public class OrderController {
+public class OrderRestController {
     private final OrderService orderService;
-    private final UserOrdersService userOrdersService;
 
     @Autowired
-    public OrderController(OrderService orderService,
-                           UserOrdersService userOrdersService) {
+    public OrderRestController(OrderService orderService) {
         this.orderService = orderService;
-        this.userOrdersService = userOrdersService;
     }
 
     /**

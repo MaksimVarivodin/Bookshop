@@ -1,4 +1,4 @@
-package petprojects.bookshop.controllers;
+package petprojects.bookshop.restcontrollers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,17 +6,16 @@ import org.springframework.web.bind.annotation.*;
 import petprojects.bookshop.models.orderinfrastructure.TakenModel;
 import petprojects.bookshop.services.TakenService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/taken")
-public class TakenController {
+public class TakenRestController {
 
     private final TakenService takenService;
 
     @Autowired
-    public TakenController(TakenService takenService) {
+    public TakenRestController(TakenService takenService) {
         this.takenService = takenService;
     }
 

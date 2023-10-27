@@ -2,6 +2,7 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.shopinfrastructure.ShopModel;
 import petprojects.bookshop.repositories.ShopRepository;
 
@@ -36,7 +37,7 @@ public class ShopService {
         else
             return shop.get();
     }
-
+    @Transactional
     public void addNewShop(ShopModel shopModel) {
         shopRepository.findByAddress(shopModel.getAddress()).ifPresentOrElse(
                 shop -> {
@@ -45,7 +46,7 @@ public class ShopService {
                 () -> shopRepository.save(shopModel)
         );
     }
-
+    @Transactional
     public void updateShopFields(Long shopId,
                                  String shopName,
                                  String address,
@@ -71,6 +72,8 @@ public class ShopService {
                             throw new IllegalStateException(String.format(NO_SUCH_SHOP_EXISTS, shopId));
                         });
     }
+
+    @Transactional
     public void updateShop(Long shopId, ShopModel shopModel) {
         updateShopFields(
                 shopId,
@@ -81,6 +84,8 @@ public class ShopService {
                 shopModel.getCity().getCityId()
         );
     }
+
+    @Transactional
     public void deleteShop(Long shopId) {
         shopRepository.findById(shopId)
                 .ifPresentOrElse(

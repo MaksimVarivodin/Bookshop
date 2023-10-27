@@ -3,7 +3,9 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.literatureinfrastructure.AuthorModel;
+import petprojects.bookshop.models.literatureinfrastructure.LiteratureInfoModel;
 import petprojects.bookshop.repositories.AuthorRepository;
 
 import java.time.LocalDate;
@@ -45,7 +47,13 @@ public class AuthorService {
         } else
             return author.get();
     }
-
+    public List<LiteratureInfoModel> getAuthorsLiterature(Long authorId) {
+        AuthorModel author = getAuthorById(authorId);
+        if (author == null) {
+            throw new NullPointerException("Author not found");
+        }
+        return author.getAuthorsLiterature();
+    }
 
     /**
      * Adds a new author to the author repository.
@@ -53,6 +61,7 @@ public class AuthorService {
      * @param authorModel The author model object containing the details of the author.
      * @throws IllegalStateException If an author with the same full name already exists in the repository.
      */
+    @Transactional
     public void addNewAuthor(AuthorModel authorModel) {
         // Check if an author with the same full name already exists in the repository
         authorRepository.findByFullName(authorModel.getFullName())
@@ -77,6 +86,7 @@ public class AuthorService {
      * @param biographyInShort The short biography of the author.
      * @throws IllegalStateException If the author does not exist.
      */
+    @Transactional
     public void updateAuthorFields(Long authorId,
                                    String fullName,
                                    LocalDate birthDate,
@@ -109,6 +119,7 @@ public class AuthorService {
      * @param authorId     The ID of the author.
      * @param authorModel  The updated author model.
      */
+    @Transactional
     public void updateAuthor(Long authorId, AuthorModel authorModel) {
         updateAuthorFields(
                 authorId,
@@ -126,6 +137,7 @@ public class AuthorService {
      * @param authorId The ID of the author to delete.
      * @throws IllegalStateException If the author does not exist.
      */
+    @Transactional
     public void deleteAuthor(Long authorId) {
         authorRepository.findById(authorId)
                 .ifPresentOrElse(

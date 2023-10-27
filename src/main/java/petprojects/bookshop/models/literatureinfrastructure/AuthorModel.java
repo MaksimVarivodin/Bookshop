@@ -1,12 +1,14 @@
 package petprojects.bookshop.models.literatureinfrastructure;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -42,10 +44,15 @@ public class AuthorModel {
     @Transient
     private Integer age;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<LiteratureInfoModel> authorsLiterature;
+
     @Column
     private String pictureLink;
 
-    @Column
+    @Column(length = 5000)
+    @Size(max = 10000)
     private String biographyInShort;
 
     public AuthorModel(String fullName,

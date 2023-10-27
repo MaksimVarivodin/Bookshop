@@ -2,6 +2,7 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.shopinfrastructure.PresentLiteratureModel;
 import petprojects.bookshop.repositories.PresentLiteratureRepository;
 
@@ -54,6 +55,7 @@ public class PresentLiteratureService {
      * @param presentLiteratureModel The present literature model to add.
      * @throws IllegalStateException If the literature already exists in the repository.
      */
+    @Transactional
     public void addNewPresentLiterature(PresentLiteratureModel presentLiteratureModel) {
         presentLiteratureRepository.findByShopAndLiterature(presentLiteratureModel.getShop(), presentLiteratureModel.getLiterature())
                 .ifPresentOrElse(
@@ -72,6 +74,7 @@ public class PresentLiteratureService {
      * @param literature_id       The ID of the new literature.
      * @throws IllegalStateException if the present literature with the given ID does not exist.
      */
+    @Transactional
     public void updatePresentLiteratureFields(Long presentLiteratureId,
                                               Integer amount,
                                               Long shop_id,
@@ -98,6 +101,7 @@ public class PresentLiteratureService {
      * @param presentLiteratureId   The ID of the present literature to update.
      * @param presentLiteratureModel The present literature model containing the updated data.
      */
+    @Transactional
     public void updatePresentLiterature(Long presentLiteratureId, PresentLiteratureModel presentLiteratureModel) {
         updatePresentLiteratureFields(
                 presentLiteratureId,
@@ -112,6 +116,7 @@ public class PresentLiteratureService {
      * @param presentLiteratureId The ID of the present literature to delete.
      * @throws IllegalStateException If no present literature with the given ID exists.
      */
+    @Transactional
     public void deletePresentLiterature(Long presentLiteratureId) {
         presentLiteratureRepository.findById(presentLiteratureId)
                 .ifPresentOrElse(

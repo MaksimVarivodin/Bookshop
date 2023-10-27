@@ -2,6 +2,7 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.shopinfrastructure.CityModel;
 import petprojects.bookshop.repositories.CityRepository;
 
@@ -50,6 +51,7 @@ public class CityService {
      * @param cityModel The city model to be added.
      * @throws IllegalStateException If the city already exists in the repository.
      */
+    @Transactional
     public void addNewCity(CityModel cityModel) {
         cityRepository.findByCityName(cityModel.getCityName())
                 .ifPresentOrElse(
@@ -67,6 +69,7 @@ public class CityService {
      * @param cityName  The new name of the city.
      * @throws IllegalStateException If no city exists with the given ID.
      */
+    @Transactional
     public void updateCityFields(Long cityId, String cityName) {
         cityRepository.findById(cityId).ifPresentOrElse(
                 city -> {
@@ -86,6 +89,7 @@ public class CityService {
      * @param cityId    The ID of the city to update.
      * @param cityModel The CityModel object containing the updated information.
      */
+    @Transactional
     public void updateCity(Long cityId, CityModel cityModel) {
         updateCityFields(cityId, cityModel.getCityName());
     }
@@ -97,6 +101,7 @@ public class CityService {
      * @param cityId the id of the city to delete
      * @throws IllegalStateException if no city exists with the given cityId
      */
+    @Transactional
     public void deleteCity(Long cityId) {
         cityRepository.findById(cityId)
                 .ifPresentOrElse(
