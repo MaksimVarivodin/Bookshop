@@ -40,4 +40,15 @@ public class ShopModel {
     @JoinColumn(name = "city_id")
     private CityModel city;
 
+    public ShopModel(String shopName,
+                     String address,
+                     Integer workersAmount,
+                     Integer bookStorageSize,
+                     CityModel city) {
+        this.shopName = shopName;
+        this.address = address;
+        this.workersAmount = workersAmount;
+        this.bookStorageSize = bookStorageSize;
+        this.city = city;
+    }
 }

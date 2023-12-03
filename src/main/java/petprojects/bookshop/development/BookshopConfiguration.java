@@ -6,10 +6,18 @@ import org.springframework.context.annotation.Configuration;
 import petprojects.bookshop.models.literatureinfrastructure.AuthorModel;
 import petprojects.bookshop.models.literatureinfrastructure.GenreModel;
 import petprojects.bookshop.models.literatureinfrastructure.LiteratureInfoModel;
+import petprojects.bookshop.models.orderinfrastructure.OrderModel;
+import petprojects.bookshop.models.orderinfrastructure.TakenModel;
+import petprojects.bookshop.models.shopinfrastructure.CityModel;
+import petprojects.bookshop.models.shopinfrastructure.PresentLiteratureModel;
+import petprojects.bookshop.models.shopinfrastructure.ShopModel;
+import petprojects.bookshop.models.userinfrastructure.UserModel;
+import petprojects.bookshop.models.userinfrastructure.UserRoles;
 import petprojects.bookshop.services.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Configuration
 public class BookshopConfiguration {
@@ -26,13 +34,7 @@ public class BookshopConfiguration {
                     UserService userService
     ) {
         return args -> {
-//authorId
-//fullName
-//birthDate
-//deathDate
-//age
-//pictureLink
-//biographyInShort
+
             AuthorModel authorModel = new AuthorModel(
                     "Іва́н Петро́вич Котляре́вський ",
                     LocalDate.of(1769, 8, 29),
@@ -50,14 +52,6 @@ public class BookshopConfiguration {
             );
             genreService.addNewGenre(genreModel);
 
-//literatureId
-//pages
-//words
-//title
-//price
-//description
-//author
-//genre
             LiteratureInfoModel literatureInfoModel = new LiteratureInfoModel(
                     336,
                     7000,
@@ -71,6 +65,56 @@ public class BookshopConfiguration {
                     genreModel
             );
             literatureInfoService.addNewLiterature(literatureInfoModel);
+            CityModel cityModel = new CityModel(
+                    "Харків"
+            );
+            cityService.addNewCity(cityModel);
+
+            UserModel userModel = new UserModel(
+                "Bob",
+                    "Bean",
+                    "bbean@ya.ru",
+                    "123456",
+                    123456789L,
+                    UserRoles.USER,
+                    false,
+                    true,
+                    "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            );
+            userService.addNewUser(userModel);
+
+            ShopModel shopModel = new ShopModel(
+                "Харків БукМаг",
+                    "Пушкінська вул. 2",
+                    10,
+                    100,
+                    cityModel
+            );
+
+            shopService.addNewShop(shopModel);
+            PresentLiteratureModel presentLiteratureModel = new PresentLiteratureModel(
+                10,
+                literatureInfoModel,
+                shopModel
+            );
+            presentLiteratureService.addNewPresentLiterature(presentLiteratureModel);
+
+            OrderModel orderModel = new OrderModel(
+                1234567890123456L,
+                LocalDateTime.now(),
+                123,
+                12,
+                24,
+                userModel
+            );
+            orderService.addNewOrder(orderModel);
+
+            TakenModel takenModel = new TakenModel(
+                    5,
+                orderModel,
+                presentLiteratureModel
+            );
+            takenService.addNewTaken(takenModel);
         };
     }
 }

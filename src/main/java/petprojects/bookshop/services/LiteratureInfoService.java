@@ -2,6 +2,7 @@ package petprojects.bookshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import petprojects.bookshop.models.literatureinfrastructure.LiteratureInfoModel;
 import petprojects.bookshop.repositories.LiteratureInfoRepository;
 
@@ -19,7 +20,7 @@ public class LiteratureInfoService {
     private final String NO_SUCH_LITERATURE_EXISTS = "No literature with such an id {%s} exists";
 
     @Autowired
-    private LiteratureInfoService(
+    public LiteratureInfoService(
             LiteratureInfoRepository literatureInfoRepository,
             AuthorService authorService,
             GenreService genreService) {
@@ -27,7 +28,6 @@ public class LiteratureInfoService {
         this.literatureInfoRepository = literatureInfoRepository;
         this.authorService = authorService;
         this.genreService = genreService;
-
     }
 
     /**
@@ -45,6 +45,7 @@ public class LiteratureInfoService {
      * @param authorId The ID of the author.
      * @return An optional containing the literature information model if found, otherwise empty.
      */
+
     public LiteratureInfoModel getLiteratureById(Long authorId) {
         Optional<LiteratureInfoModel> literatureInfoModel = literatureInfoRepository.findById(authorId);
         if (literatureInfoModel.isEmpty())
@@ -59,22 +60,17 @@ public class LiteratureInfoService {
      * @param literatureInfoModel The literature info model to add.
      * @throws IllegalStateException If the literature with the same title already exists.
      */
-
+    @Transactional
     public void addNewLiterature(LiteratureInfoModel literatureInfoModel) {
-        long amountOfElements = literatureInfoRepository.count();
         // Check if literature with the same title already exists
-        if (amountOfElements > 0){
-            literatureInfoRepository.findByTitle(literatureInfoModel.getTitle())
-                    .ifPresentOrElse(
-                            literature -> {
-                                // Throw exception if literature already exists
-                                throw new IllegalStateException(String.format(LITERATURE_EXISTS, literature.getTitle()));
-                            },
-                            () -> literatureInfoRepository.save(literatureInfoModel)
-                    );
-        }
-        else
-            literatureInfoRepository.save(literatureInfoModel);
+        literatureInfoRepository.findByTitle(literatureInfoModel.getTitle())
+                .ifPresentOrElse(
+                        literature -> {
+                            // Throw exception if literature already exists
+                            throw new IllegalStateException(String.format(LITERATURE_EXISTS, literature.getTitle()));
+                        },
+                        () -> literatureInfoRepository.save(literatureInfoModel)
+                );
     }
 
     /**
@@ -89,7 +85,7 @@ public class LiteratureInfoService {
      * @param authorId    the ID of the author to set (null to not update)
      * @param genreId     the ID of the genre to set (null to not update)
      */
-
+    @Transactional
     public void updateLiteratureFields(Long id, Integer pages, Integer words, String title, BigDecimal price,
                                        String description, Long authorId, Long genreId) {
         literatureInfoRepository.findById(id).ifPresentOrElse(literature -> {
@@ -124,10 +120,10 @@ public class LiteratureInfoService {
     /**
      * Updates the literature with the specified ID using the information provided in the literatureInfoModel.
      *
-     * @param id                  The ID of the literature to update.
+     * @param id The ID of the literature to update.
      * @param literatureInfoModel The new information for the literature.
      */
-
+    @Transactional
     public void updateLiterature(Long id, LiteratureInfoModel literatureInfoModel) {
         updateLiteratureFields(
                 id,
@@ -147,6 +143,7 @@ public class LiteratureInfoService {
      * @param id The ID of the literature to delete.
      * @throws IllegalStateException If no literature exists with the given ID.
      */
+    @Transactional
     public void deleteLiterature(Long id) {
         literatureInfoRepository.findById(id)
                 .ifPresentOrElse(

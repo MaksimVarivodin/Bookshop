@@ -10,54 +10,53 @@
 <html>
 <head>
     <title>Literature</title>
+    <meta charset="UTF-8">
+    <script type="application/javascript" src="${pageContext.request.contextPath}/resources/js/add-js-scripts.js"></script>
+
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/home">Home</a>
+<a href="${pageContext.request.contextPath}/main-page">Home</a>
 <h2>
-    Literature By ${author.fullName}
+    Literature By
+    <a href="${pageContext.request.contextPath}/authors#${author.authorId}">${author.fullName}</a>
 </h2>
-<table>
-    <thead>
-    <tr>
-        <th>Pages</th>
-        <th>Words</th>
-        <th>Title</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Book Cover</th>
-        <th>Genre</th>
-
-
-    </tr>
-    </thead>
-    <tbody>
+<div class="item-rows">
     <c:forEach items="${literature}" var="book">
-        <tr>
-                <%--
-                    literatureId
-                    pages
-                    words
-                    title
-                    price
-                    description
-                    pictureLink
-                    author
-                    genre
-                    --%>
-            <td>${book.pages      }</td>
-            <td>${book.words      }</td>
-            <td>${book.title      }</td>
-            <td>${book.price      }</td>
-            <td>${book.description}</td>
-            <td>
+        <div class="container">
+                <image-container>
                 <img src="${book.bookCoverLink}" alt="${book.title      } photo"/>
-            </td>
-            <td>${book.genre.genreName      }</td>
+                <input type="checkbox" id="info${book.literatureId}" class="info">
+                <label for="info${book.literatureId}" class="main-info">
+                    Відомості
+                </label>
+                <div class="additional-info">
+                    <p>
+                        Жанр: ${book.genre.genreName      }
 
-        </tr>
+                    </p>
+                    <p>
+                        Слів: ${book.words      }
+
+                    </p>
+
+                    <p>
+                        Сторінок: ${book.pages      }
+
+                    </p>
+
+                    <p>
+                            ${book.description}
+                    </p>
+                </div>
+            </image-container>
+            <h3>${book.price      } ₴</h3>
+
+            <h4>${book.title      }</h4>
+            <div class="buy-button"> Купити</div>
+        </div>
     </c:forEach>
-    </tbody>
-</table>
+</div>
+
 </body>
 
 </html>

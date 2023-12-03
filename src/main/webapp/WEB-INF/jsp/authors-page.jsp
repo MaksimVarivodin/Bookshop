@@ -1,4 +1,8 @@
-<%--
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="petprojects.bookshop.models.literatureinfrastructure.AuthorModel" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Locale" %><%--
   Created by IntelliJ IDEA.
   User: maksy
   Date: 26.10.2023
@@ -10,53 +14,53 @@
 <html>
 <head>
     <title>View Authors</title>
-    <link href="../style.css" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <script type="application/javascript" src="${pageContext.request.contextPath}/resources/js/add-js-scripts.js"></script>
 </head>
 <body>
 <header>
-    <a href="${pageContext.request.contextPath}/home">Home</a>
+    <a href="${pageContext.request.contextPath}/main-page">Home</a>
 </header>
-<table>
-    <thead>
-    <tr>
-        <th>Author Id</th>
-        <th>Full Name</th>
-        <th>Birth Date</th>
-        <th>Death Date</th>
-        <th>Age</th>
-        <th>Picture Link</th>
-        <th>Biography In Short</th>
 
-    </tr>
-    </thead>
-    <tbody>
+<div class="item-rows">
+    <%
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy").withLocale(Locale.of("uk", "UA"));
+    %>
     <c:forEach items="${authors}" var="author">
-        <tr>
-                <%--
-                authorId
-                fullName
-                birthDate
-                deathDate
-                age
-                pictureLink
-                biographyInShort
-                --%>
-            <td>${author.authorId        }</td>
-            <td>${author.fullName        }</td>
-            <td>${author.birthDate       }</td>
-            <td>${author.deathDate       }</td>
-            <td>${author.age             }</td>
-            <td><img src="${author.pictureLink     }" alt="${author.fullName        } photo"></td>
-            <td>${author.biographyInShort}</td>
-            <td>
-                <a href="${pageContext.request.contextPath}/authors/view-literature/${author.authorId}">
+        <%
+            LocalDate birth = ((AuthorModel) pageContext.getAttribute("author")).getBirthDate();
+            LocalDate death = ((AuthorModel) pageContext.getAttribute("author")).getDeathDate();
+        %>
+        <div class="container" id="${author.authorId}">
+            <image-container>
+                <img src="${author.pictureLink     }" alt="${author.fullName        } photo"/>
+                <input type="checkbox" id="info${author.authorId}" class="info">
+                <label for="info${author.authorId}" class="main-info">
+                    Біографія
+                </label>
+                <div class="additional-info">
+<%--        "12-23-34" --%>
+                    <p>Народився: <%= birth.format(formatter)%>
+                    </p>
+                    <p>Помер: <%=death.format(formatter)%>
+                    </p>
+                    <p>Прожив: ${author.age             } років</p>
+                    <p>Біографія: ${author.biographyInShort}</p>
+                </div>
+
+            </image-container>
+            <p>
+                    ${author.fullName        }
+            </p>
+
+            <div>
+                <a href="${pageContext.request.contextPath}/authors/${author.authorId}">
                     List of Literature
                 </a>
-            </td>
-
-        </tr>
+            </div>
+        </div>
     </c:forEach>
-    </tbody>
-</table>
+</div>
+
 </body>
 </html>

@@ -39,7 +39,9 @@ public class TakenModel {
     @JoinColumn(name = "present_literature_id")
     private PresentLiteratureModel counter;
 
-    public TakenModel( Integer amount, OrderModel order, PresentLiteratureModel counter) {
+    public TakenModel( Integer amount,
+                       OrderModel order,
+                       PresentLiteratureModel counter) {
         this.amount = amount;
         this.order = order;
         this.counter = counter;

@@ -1,0 +1,100 @@
+.item-rows {
+    flex-wrap: wrap;
+}
+img, .container, .main-info {
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.main-info {
+    background: grey;
+    color: white;
+    display: block;
+    margin: 0 10px 0 ;
+}
+.container{
+    width: 220px;
+    align-content: center;
+    text-align: center;
+}
+img{
+    border: 1px;
+    margin: -7px 1px 0 2px;
+    padding: 0;
+    height: 205px;
+    object-fit: scale-down;
+}
+image-container {
+    height: 245px;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    padding: 9px;
+}
+
+.additional-info {
+    display: none;
+    height: 0;
+    width: 0;
+}
+
+.additional-info div {
+    overflow: scroll;
+}
+
+
+
+.info {
+    display: none;
+}
+
+.info:checked ~ .additional-info {
+    border-radius: 10px;
+    display: block;
+    font-size: 14px;
+    margin: -295px -10px -1px 2px;
+    position: relative;
+    background: white;
+    overflow: scroll;
+    opacity: .75;
+    height: 205px;
+    width: 200px;
+}
+
+.main-info:hover {
+    opacity: .5;
+}
+
+
+.container a, .buy-button, a {
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.61);
+    border-radius: 10px;
+    background: #1e1e1e;
+    color: white;
+    padding: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.68);
+    margin: 20px auto auto 10px;
+}
+
+.container a:hover, .buy-button:hover, a:hover {
+    border-color:black;
+    background: grey;
+    color: black;
+}
+
+.buy-button {
+    text-align: center;
+    font-size: 16px;
+    margin: 0 auto 0 auto;
+}
+p{
+    margin: auto 5px 5px 5px;
+}
+h3, h4{
+    margin-top: -5px;
+    margin-bottom: 10px;
+}

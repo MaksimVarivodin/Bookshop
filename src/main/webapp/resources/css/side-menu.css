@@ -1,0 +1,21 @@
+#user-menu {
+
+}
+#user-menu:hover{ right: 0; }
+.menu-check-box{
+    display: none;
+}
+.menu-label{
+    position: fixed;
+    height: 150%;
+    width: 260px;
+    background: #fc0;
+    border-left: 20px solid #333;
+    top: -8px;
+    right: -260px;
+    transition-duration: 1s;
+    z-index: 100;
+}
+.menu-check-box:checked ~ .menu-label{
+    right: 0;
+}
